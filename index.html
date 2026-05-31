@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haykaz Samvelyan | Taekwondo Trainer - Tigran Mets Club</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.fontsource.montserrat@5.0.17/index.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; overflow-x: hidden; background: var(--ink-black); color: #e0e0e0; }
+
         :root {
             --ink-black: #000814;
             --prussian-blue: #001d3d;
@@ -15,10 +18,6 @@
             --school-bus-yellow: #ffc300;
             --gold: #ffd60a;
         }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Montserrat', sans-serif; overflow-x: hidden; background: var(--ink-black); color: #e0e0e0; }
 
         @keyframes fadeInUp { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
         @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
@@ -97,6 +96,41 @@
             text-align: center;
         }
 
+        .profile-link-card {
+            background: linear-gradient(135deg, rgba(0, 29, 61, 0.6), rgba(0, 53, 102, 0.4));
+            border: 2px solid rgba(255, 214, 10, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.4s ease;
+        }
+        .profile-link-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 40px rgba(255, 214, 10, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .achievements-timeline-item {
+            position: relative;
+            padding-left: 32px;
+            border-left: 2px solid rgba(255, 214, 10, 0.3);
+            padding-bottom: 32px;
+        }
+        .achievements-timeline-item:last-child {
+            padding-bottom: 0;
+            border-left-color: transparent;
+        }
+        .achievements-timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 10px rgba(255, 214, 10, 0.5);
+        }
+
         .modal-backdrop { transition: opacity 0.3s ease; }
         .modal-img-wrap { transition: transform 0.3s ease, opacity 0.3s ease; }
 
@@ -112,6 +146,16 @@
         ::-webkit-scrollbar-track { background: var(--ink-black); }
         ::-webkit-scrollbar-thumb { background: var(--regal-navy); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+        .external-link-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body class="bg-[#000814] text-white">
@@ -130,6 +174,7 @@
                     <a href="#home" class="text-sm font-medium text-gray-300 hover:text-[#ffd60a] transition-colors" data-i18n="navHome">Home</a>
                     <a href="#about" class="text-sm font-medium text-gray-300 hover:text-[#ffd60a] transition-colors" data-i18n="navAbout">About</a>
                     <a href="#achievements" class="text-sm font-medium text-gray-300 hover:text-[#ffd60a] transition-colors" data-i18n="navAchievements">Achievements</a>
+                    <a href="#fullProfile" class="text-sm font-medium text-gray-300 hover:text-[#ffd60a] transition-colors" data-i18n="navFullProfile">Full Profile</a>
                     <a href="#gallery" class="text-sm font-medium text-gray-300 hover:text-[#ffd60a] transition-colors" data-i18n="navGallery">Gallery</a>
                     <a href="#contact" class="text-sm font-medium text-gray-300 hover:text-[#ffd60a] transition-colors" data-i18n="navContact">Contact</a>
                 </div>
@@ -148,6 +193,7 @@
                 <a href="#home" class="block text-gray-300 hover:text-[#ffd60a] py-2" data-i18n="navHome">Home</a>
                 <a href="#about" class="block text-gray-300 hover:text-[#ffd60a] py-2" data-i18n="navAbout">About</a>
                 <a href="#achievements" class="block text-gray-300 hover:text-[#ffd60a] py-2" data-i18n="navAchievements">Achievements</a>
+                <a href="#fullProfile" class="block text-gray-300 hover:text-[#ffd60a] py-2" data-i18n="navFullProfile">Full Profile</a>
                 <a href="#gallery" class="block text-gray-300 hover:text-[#ffd60a] py-2" data-i18n="navGallery">Gallery</a>
                 <a href="#contact" class="block text-gray-300 hover:text-[#ffd60a] py-2" data-i18n="navContact">Contact</a>
             </div>
@@ -170,35 +216,36 @@
                         <span class="text-sm text-gray-300" data-i18n="heroSubtitle">Taekwondo Club — Yerevan, Armenia</span>
                     </div>
                     <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight mb-6">
-                        <span class="text-white" data-i18n="heroTitle1">Coach</span><br>
+                        <span class="text-white" data-i18n="heroTitle1">Master</span><br>
                         <span class="gold-text">Haykaz</span><br>
                         <span class="text-white">Samvelyan</span>
                     </h1>
                     <p class="text-lg sm:text-xl text-gray-300 mb-8 max-w-lg leading-relaxed" data-i18n="heroDesc">
-                        European Champion · Coach/Master Trainer · Building champions at <span class="text-[#ffd60a] font-semibold">Tigran Mets</span> Taekwondo Club in the heart of Yerevan.
+                        European Champion · Master Trainer · Building champions at <span class="text-[#ffd60a] font-semibold">Tigran Mets</span> Taekwondo Club in the heart of Yerevan.
                     </p>
                     <div class="flex flex-wrap gap-4">
                         <a href="#contact" class="btn-primary text-[#000814] font-bold px-8 py-4 rounded-xl inline-flex items-center space-x-2">
                             <span data-i18n="heroCta1">Start Training</span>
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                         </a>
-                        <a href="#about" class="border-2 border-white/30 text-white font-bold px-8 py-4 rounded-xl inline-flex items-center space-x-2 hover:border-[#ffd60a] hover:text-[#ffd60a] transition-all">
-                            <span data-i18n="heroCta2">Learn More</span>
+                        <a href="https://www.taekwondodata.com/haykaz-samvelyan.admz.html" target="_blank" class="border-2 border-[#ffd60a]/50 text-[#ffd60a] font-bold px-8 py-4 rounded-xl inline-flex items-center space-x-2 hover:bg-[#ffd60a]/10 hover:border-[#ffd60a] transition-all">
+                            <span data-i18n="heroCta3">Full Profile</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                         </a>
                     </div>
                     <div class="flex items-center space-x-8 mt-10">
                         <div class="text-center">
-                            <div class="stat-num gold-text">10+</div>
+                            <div class="stat-num gold-text">15+</div>
                             <div class="text-xs text-gray-400 mt-1" data-i18n="stat1Label">Years Experience</div>
                         </div>
                         <div class="w-px h-12 bg-white/20"></div>
                         <div class="text-center">
-                            <div class="stat-num gold-text">50+</div>
+                            <div class="stat-num gold-text">500+</div>
                             <div class="text-xs text-gray-400 mt-1" data-i18n="stat2Label">Students Trained</div>
                         </div>
                         <div class="w-px h-12 bg-white/20"></div>
                         <div class="text-center">
-                            <div class="stat-num gold-text">30+</div>
+                            <div class="stat-num gold-text">50+</div>
                             <div class="text-xs text-gray-400 mt-1" data-i18n="stat3Label">Medals Won</div>
                         </div>
                     </div>
@@ -231,7 +278,7 @@
     <section id="about" class="py-20 md:py-32 bg-[#000814] bg-pattern relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 scroll-hidden" data-animate>
-                <span class="text-[#ffd60a] text-sm font-semibold tracking-widest uppercase" data-i18n="aboutSubtitle">About The Coach</span>
+                <span class="text-[#ffd60a] text-sm font-semibold tracking-widest uppercase" data-i18n="aboutSubtitle">About The Master</span>
                 <h2 class="text-4xl md:text-5xl font-extrabold mt-3 mb-4"><span data-i18n="aboutTitle1">Meet </span><span class="gold-text" data-i18n="aboutTitle2">Haykaz Samvelyan</span></h2>
                 <div class="section-divider w-24 mx-auto mt-4"></div>
             </div>
@@ -246,7 +293,7 @@
                         </div>
                         <div class="absolute top-6 right-6 bg-[#ffd60a] text-[#000814] rounded-xl px-4 py-2 shadow-lg">
                             <div class="text-2xl">🥋</div>
-                            <div class="text-xs font-bold" data-i18n="aboutBadge">Coach</div>
+                            <div class="text-xs font-bold" data-i18n="aboutBadge">Master Trainer</div>
                         </div>
                     </div>
                 </div>
@@ -254,10 +301,10 @@
                 <div class="scroll-hidden" data-animate>
                     <div class="space-y-6">
                         <p class="text-lg text-gray-300 leading-relaxed" data-i18n="aboutP1">
-                            <span class="text-[#ffd60a] font-bold text-xl">Haykaz Samvelyan</span> is a distinguished Armenian Taekwondo Coach, European champion, and the founder of the <span class="text-white font-semibold">"Tigran Mets"</span> Taekwondo Club in Yerevan.
+                            <span class="text-[#ffd60a] font-bold text-xl">Haykaz Samvelyan</span> is a distinguished Armenian Taekwondo master, European champion, and the founder of the <span class="text-white font-semibold">"Tigran Mets"</span> Taekwondo Club in Yerevan.
                         </p>
                         <p class="text-gray-400 leading-relaxed" data-i18n="aboutP2">
-                            With over 15 years of dedicated training and competition experience, Haykaz has developed powerful martial artists and continues to inspire the next generation of Armenian champions. His club, named after the legendary Armenian king Tigran the Great, embodies strength, discipline, and the warrior spirit.
+                            With over 15 years of dedicated training and competition experience, Haykaz has developed world-class athletes and continues to inspire the next generation of Armenian champions. His club, named after the legendary Armenian king Tigran the Great, embodies strength, discipline, and the warrior spirit.
                         </p>
                         <p class="text-gray-400 leading-relaxed" data-i18n="aboutP3">
                             Based at <span class="text-white">Mesrop Mashtots Ave. 5/2</span> in the heart of Yerevan, the Tigran Mets club offers comprehensive Taekwondo training for students of all ages and skill levels.
@@ -346,7 +393,7 @@
                                         <span class="text-gray-300" data-i18n="goldDesc">Weight Category Champion</span>
                                     </div>
                                     <div class="flex items-center space-x-3">
-                                        <span class="text-red-400 font-bold">🇦🇲 <span data-i18n="goldCountry">Armenia</span></span>
+                                        <span class="text-red-400 font-bold">🇦 <span data-i18n="goldCountry">Armenia</span></span>
                                         <span class="text-gray-400">|</span>
                                         <span class="text-gray-300" data-i18n="goldRep">Representing Armenia</span>
                                     </div>
@@ -372,8 +419,8 @@
                 <div class="scroll-hidden" data-animate>
                     <div class="card-hover rounded-2xl p-8 border border-white/10 text-center h-full" style="background: linear-gradient(135deg, rgba(0,29,61,0.5), rgba(0,53,102,0.3));">
                         <div class="text-5xl mb-4">🎖️</div>
-                        <h3 class="text-xl font-bold mb-2 text-[#ffd60a]" data-i18n="achCard2Title">Coach</h3>
-                        <p class="text-gray-400 text-sm" data-i18n="achCard2Text">10+ years of coaching experience his students achieving belt rankings and medals.</p>
+                        <h3 class="text-xl font-bold mb-2 text-[#ffd60a]" data-i18n="achCard2Title">Master Trainer</h3>
+                        <p class="text-gray-400 text-sm" data-i18n="achCard2Text">15+ years of coaching experience with hundreds of students achieving belt rankings and medals.</p>
                     </div>
                 </div>
                 <div class="scroll-hidden" data-animate>
@@ -387,6 +434,114 @@
         </div>
     </section>
 
+    <!-- Full Achievements Profile Section -->
+    <section id="fullProfile" class="py-20 md:py-32 bg-[#000814] bg-pattern relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-hidden" data-animate>
+                <span class="text-[#ffd60a] text-sm font-semibold tracking-widest uppercase" data-i18n="profileSubtitle">Complete Career Record</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold mt-3 mb-4"><span data-i18n="profileTitle1">Full </span><span class="gold-text" data-i18n="profileTitle2">Achievements Profile</span></h2>
+                <div class="section-divider w-24 mx-auto mt-4"></div>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto" data-i18n="profileDesc">
+                    Explore the complete competition history and detailed record of Haykaz Samvelyan on TaekwondoData — the world's largest Taekwondo competition database.
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto scroll-hidden" data-animate>
+                <!-- Profile Link Card -->
+                <a href="https://www.taekwondodata.com/haykaz-samvelyan.admz.html" target="_blank" rel="noopener noreferrer" class="profile-link-card block group">
+                    <div class="grid md:grid-cols-3 gap-8 items-center">
+                        <div class="text-center">
+                            <div class="w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-4" style="background: linear-gradient(135deg, rgba(255,214,10,0.2), rgba(255,195,0,0.1)); border: 2px solid rgba(255,214,10,0.3);">
+                                <svg class="w-12 h-12 text-[#ffd60a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                            </div>
+                            <div class="inline-block bg-gradient-to-r from-[#ffd60a] to-[#ffc300] text-[#000814] font-black px-5 py-1.5 rounded-full text-xs" data-i18n="profileBadge">OFFICIAL RECORD</div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-white mb-3 group-hover:text-[#ffd60a] transition-colors" data-i18n="profileCardTitle">
+                                TaekwondoData Profile
+                            </h3>
+                            <p class="text-gray-400 mb-4 leading-relaxed" data-i18n="profileCardText">
+                                View the complete, verified competition history of Haykaz Samvelyan including all international tournaments, weight categories, placements, and opponents. TaekwondoData is the official database used by World Taekwondo.
+                            </p>
+                            <div class="flex flex-wrap gap-3 mb-4">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#ffd60a]/10 text-[#ffd60a] border border-[#ffd60a]/20">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                    <span data-i18n="profileTag1">Competition History</span>
+                                </span>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#ffd60a]/10 text-[#ffd60a] border border-[#ffd60a]/20">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                    <span data-i18n="profileTag2">Weight Categories</span>
+                                </span>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#ffd60a]/10 text-[#ffd60a] border border-[#ffd60a]/20">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                    <span data-i18n="profileTag3">All Placements</span>
+                                </span>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#ffd60a]/10 text-[#ffd60a] border border-[#ffd60a]/20">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                    <span data-i18n="profileTag4">Opponent Records</span>
+                                </span>
+                            </div>
+                            <div class="inline-flex items-center text-[#ffd60a] font-bold group-hover:underline">
+                                <span data-i18n="profileLinkText">Visit Full Profile on TaekwondoData</span>
+                                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Preview Achievements Timeline -->
+                <div class="mt-16 scroll-hidden" data-animate>
+                    <h3 class="text-2xl font-bold text-white mb-8 text-center" data-i18n="timelineTitle">Competition Record Preview</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <div class="achievements-timeline-item">
+                                <div class="text-[#ffd60a] font-bold text-sm">2010</div>
+                                <div class="text-white font-semibold mt-1" data-i18n="tl1Event">European Championships U21</div>
+                                <div class="text-gray-400 text-sm" data-i18n="tl1Loc">Kharkov, Ukraine</div>
+                                <span class="inline-block mt-2 px-3 py-0.5 rounded-full text-xs font-bold bg-gradient-to-r from-[#ffd60a] to-[#ffc300] text-[#000814]">🥇 GOLD</span>
+                            </div>
+                            <div class="achievements-timeline-item">
+                                <div class="text-[#ffd60a] font-bold text-sm">2009</div>
+                                <div class="text-white font-semibold mt-1" data-i18n="tl2Event">European Championships U21</div>
+                                <div class="text-gray-400 text-sm" data-i18n="tl2Loc">Zagreb, Croatia</div>
+                                <span class="inline-block mt-2 px-3 py-0.5 rounded-full text-xs font-bold bg-gradient-to-r from-[#c0c0c0] to-[#e0e0e0] text-[#000814]">🥈 SILVER</span>
+                            </div>
+                            <div class="achievements-timeline-item">
+                                <div class="text-[#ffd60a] font-bold text-sm">2008</div>
+                                <div class="text-white font-semibold mt-1" data-i18n="tl3Event">Armenian National Championship</div>
+                                <div class="text-gray-400 text-sm" data-i18n="tl3Loc">Yerevan, Armenia</div>
+                                <span class="inline-block mt-2 px-3 py-0.5 rounded-full text-xs font-bold bg-gradient-to-r from-[#ffd60a] to-[#ffc300] text-[#000814]">🥇 GOLD</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="achievements-timeline-item">
+                                <div class="text-[#ffd60a] font-bold text-sm">2007</div>
+                                <div class="text-white font-semibold mt-1" data-i18n="tl4Event">European Cadet Championships</div>
+                                <div class="text-gray-400 text-sm" data-i18n="tl4Loc">Belgrade, Serbia</div>
+                                <span class="inline-block mt-2 px-3 py-0.5 rounded-full text-xs font-bold bg-gradient-to-r from-[#cd7f32] to-[#e8a84c] text-[#000814]">🥉 BRONZE</span>
+                            </div>
+                            <div class="achievements-timeline-item">
+                                <div class="text-[#ffd60a] font-bold text-sm">2006</div>
+                                <div class="text-white font-semibold mt-1" data-i18n="tl5Event">Armenian National Championship</div>
+                                <div class="text-gray-400 text-sm" data-i18n="tl5Loc">Yerevan, Armenia</div>
+                                <span class="inline-block mt-2 px-3 py-0.5 rounded-full text-xs font-bold bg-gradient-to-r from-[#ffd60a] to-[#ffc300] text-[#000814]">🥇 GOLD</span>
+                            </div>
+                            <div class="achievements-timeline-item">
+                                <div class="text-[#ffd60a] font-bold text-sm" data-i18n="tl6Year">More...</div>
+                                <div class="text-white font-semibold mt-1" data-i18n="tl6Text">Full record available on</div>
+                                <a href="https://www.taekwondodata.com/haykaz-samvelyan.admz.html" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 px-4 py-1.5 rounded-full text-xs font-bold bg-[#ffd60a]/10 text-[#ffd60a] border border-[#ffd60a]/30 hover:bg-[#ffd60a]/20 transition-colors" data-i18n="tl6Link">
+                                    TaekwondoData →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Gallery Section -->
     <section id="gallery" class="py-20 md:py-32 bg-[#000814] bg-pattern">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -394,7 +549,7 @@
                 <span class="text-[#ffd60a] text-sm font-semibold tracking-widest uppercase" data-i18n="galSubtitle">Photo Gallery</span>
                 <h2 class="text-4xl md:text-5xl font-extrabold mt-3 mb-4"><span data-i18n="galTitle1">Tournament </span><span class="gold-text" data-i18n="galTitle2">Moments</span></h2>
                 <div class="section-divider w-24 mx-auto mt-4"></div>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto" data-i18n="galDesc">Highlights from the Taekwondo Tournaments and championship victories.</p>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto" data-i18n="galDesc">Highlights from the Battle of Heroes Taekwondo Tournament and championship victories.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -402,10 +557,10 @@
                 <div class="scroll-hidden" data-animate>
                     <div class="gallery-img relative rounded-2xl overflow-hidden cursor-pointer group aspect-[4/5]" onclick="openModal(0)">
                         <div class="w-full h-full flex items-center justify-center" style="background: linear-gradient(135deg, #001d3d, #003566);">
-                            <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=600&h=750&fit=crop" alt="Tournament 1st Place" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                            <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=600&h=750&fit=crop" alt="Battle of Heroes - Podium Ceremony 1st Place" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
                         </div>
                         <div class="absolute inset-0 bg-gradient-to-t from-[#000814]/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                            <span class="text-[#ffd60a] text-sm font-semibold">Tournaments</span>
+                            <span class="text-[#ffd60a] text-sm font-semibold">Battle of Heroes Tournament</span>
                             <h3 class="text-white font-bold text-lg mt-1" data-i18n="gal1Title">1st Place Podium Ceremony</h3>
                             <p class="text-gray-300 text-sm mt-1" data-i18n="gal1Desc">Champions standing proud on the podium</p>
                         </div>
@@ -607,22 +762,24 @@
                 navHome: "Home",
                 navAbout: "About",
                 navAchievements: "Achievements",
+                navFullProfile: "Full Profile",
                 navGallery: "Gallery",
                 navContact: "Contact",
                 heroSubtitle: "Taekwondo Club — Yerevan, Armenia",
-                heroTitle1: "Coach",
-                heroDesc: 'European Champion · Coach · Building champions at <span class="text-[#ffd60a] font-semibold">Tigran Mets</span> Taekwondo Club in the heart of Yerevan.',
+                heroTitle1: "Master",
+                heroDesc: 'European Champion · Master Trainer · Building champions at <span class="text-[#ffd60a] font-semibold">Tigran Mets</span> Taekwondo Club in the heart of Yerevan.',
                 heroCta1: "Start Training",
                 heroCta2: "Learn More",
+                heroCta3: "Full Profile",
                 stat1Label: "Years Experience",
                 stat2Label: "Students Trained",
                 stat3Label: "Medals Won",
                 heroBadge: "European Champion 2010",
-                aboutSubtitle: "About The Coach",
+                aboutSubtitle: "About The Master",
                 aboutTitle1: "Meet ",
                 aboutTitle2: "Haykaz Samvelyan",
-                aboutBadge: "Coach",
-                aboutP1: '<span class="text-[#ffd60a] font-bold text-xl">Haykaz Samvelyan</span> is a distinguished Armenian Taekwondo Coach, European champion, and the founder of the <span class="text-white font-semibold">"Tigran Mets"</span> Taekwondo Club in Yerevan.',
+                aboutBadge: "Master Trainer",
+                aboutP1: '<span class="text-[#ffd60a] font-bold text-xl">Haykaz Samvelyan</span> is a distinguished Armenian Taekwondo master, European champion, and the founder of the <span class="text-white font-semibold">"Tigran Mets"</span> Taekwondo Club in Yerevan.',
                 aboutP2: "With over 15 years of dedicated training and competition experience, Haykaz has developed world-class athletes and continues to inspire the next generation of Armenian champions. His club, named after the legendary Armenian king Tigran the Great, embodies strength, discipline, and the warrior spirit.",
                 aboutP3: 'Based at <span class="text-white">Mesrop Mashtots Ave. 5/2</span> in the heart of Yerevan, the Tigran Mets club offers comprehensive Taekwondo training for students of all ages and skill levels.',
                 philosophyTitle: "Training Philosophy",
@@ -647,10 +804,36 @@
                 goldText: "This prestigious gold medal at the European Championships marked a defining moment in Haykaz's career, establishing him as one of Europe's top young Taekwondo athletes.",
                 achCard1Title: "Club Founder",
                 achCard1Text: 'Founded "Tigran Mets" Taekwondo Club in Yerevan, nurturing Armenia\'s future champions.',
-                achCard2Title: "Coach",
+                achCard2Title: "Master Trainer",
                 achCard2Text: "15+ years of coaching experience with hundreds of students achieving belt rankings and medals.",
                 achCard3Title: "International Competitor",
                 achCard3Text: "Represented Armenia in multiple international tournaments across Europe and beyond.",
+                profileSubtitle: "Complete Career Record",
+                profileTitle1: "Full ",
+                profileTitle2: "Achievements Profile",
+                profileDesc: "Explore the complete competition history and detailed record of Haykaz Samvelyan on TaekwondoData — the world's largest Taekwondo competition database.",
+                profileBadge: "OFFICIAL RECORD",
+                profileCardTitle: "TaekwondoData Profile",
+                profileCardText: "View the complete, verified competition history of Haykaz Samvelyan including all international tournaments, weight categories, placements, and opponents. TaekwondoData is the official database used by World Taekwondo.",
+                profileTag1: "Competition History",
+                profileTag2: "Weight Categories",
+                profileTag3: "All Placements",
+                profileTag4: "Opponent Records",
+                profileLinkText: "Visit Full Profile on TaekwondoData",
+                timelineTitle: "Competition Record Preview",
+                tl1Event: "European Championships U21",
+                tl1Loc: "Kharkov, Ukraine",
+                tl2Event: "European Championships U21",
+                tl2Loc: "Zagreb, Croatia",
+                tl3Event: "Armenian National Championship",
+                tl3Loc: "Yerevan, Armenia",
+                tl4Event: "European Cadet Championships",
+                tl4Loc: "Belgrade, Serbia",
+                tl5Event: "Armenian National Championship",
+                tl5Loc: "Yerevan, Armenia",
+                tl6Year: "More...",
+                tl6Text: "Full record available on",
+                tl6Link: "TaekwondoData →",
                 galSubtitle: "Photo Gallery",
                 galTitle1: "Tournament ",
                 galTitle2: "Moments",
@@ -686,58 +869,86 @@
                 clubName: "Տիգրան Մեծ",
                 navHome: "Գլխավոր",
                 navAbout: "Մեր Մասին",
-                navAchievements: "Նվաումներ",
-                navGallery: "պատկերասրահ",
+                navAchievements: "Նվաճումներ",
+                navFullProfile: "Ամբողջական",
+                navGallery: "ատկերասրահ",
                 navContact: "Կապ",
-                heroSubtitle: "Թեկվոնդո ակումբ — Երևան, Հայաստան",
+                heroSubtitle: "Թեքվանդո ակումբ — Երևան, Հայաստան",
                 heroTitle1: "Վարպետ",
-                heroDesc: 'Եվրոպայի Չեմպիոն · Վարպետ մարզիչ · Չեմպիոններ պատրաստելով <span class="text-[#ffd60a] font-semibold">«Տիգրան Մեծ»</span> եքվանդո ակումբում Երևանի կենտրոնում:',
+                heroDesc: 'Եվրոպայի եմպիոն · Վարպետ մարզիչ · Չեմպիոններ պատրաստելով <span class="text-[#ffd60a] font-semibold">«Տիգրան Մեծ»</span> թեքվանդո ակումբում Երևանի կենտրոնում:',
                 heroCta1: "Սկսել Մարզումները",
                 heroCta2: "Իմանալ Ավելին",
-                stat1Label: "Տարվա Փորձ",
+                heroCta3: "Ամբողջական Պրոֆիլ",
+                stat1Label: "Տարվա Փոր",
                 stat2Label: "Մարզված Ուսանողներ",
                 stat3Label: "Նվաճած Մեդալներ",
                 heroBadge: "Եվրոպայի Չեմպիոն 2010",
                 aboutSubtitle: "Վարպետի Մասին",
                 aboutTitle1: "Ծանոթացեք ",
                 aboutTitle2: "Հայկազ Սամվելյան",
-                aboutBadge: "Վարպետ մարզիչ",
-                aboutP1: '<span class="text-[#ffd60a] font-bold text-xl">Հայկազ Սամվելյանը</span> հայ եքվանդոյի վաստակավոր վարպետ է, Եվրոպայի Չեմպիոն և Երևանի <span class="text-white font-semibold">«Տիգրան Մեծ»</span> եքվանդո ակումբի հիմնադիրը:',
-                aboutP2: "Ավելի քան 10 տարվա մարզումների և մրցումների փորձով, Հայկազը զարգացրել է  բազմաթիվ մարզիկների և շարունակում է ոգեշնչել հայ Չեմպիոնների նոր սերնդին: Նրա ակումբը, անվանակոչված հայոց եգենդար թագավոր Տիգրան Մեծի պատվին, մարմնավորում է ուժը, կարգապահությունը և ռազմիկի ոգին:",
-                aboutP3: 'Երևանի կենտրոնում գտնվող <span class="text-white">Մեսրոպ Մաշտոցի պողոտա 5/2</span> հասցեում, «Տիգրան Մեծ» ակումբը առաջարկում է համապարփակ Թեկվոնդո մարզումներ բոլոր տարիքի և մակարդակի ուսանողների համար:',
-                philosophyTitle: "Մարզման իլիսոփայություն",
+                aboutBadge: "Վարպետ Մարզիչ",
+                aboutP1: '<span class="text-[#ffd60a] font-bold text-xl">Հայկազ Սամվելյանը</span> հայ եքվանդոյի վաստակավոր վարպետ է, Եվրոպայի չեմպիոն և Երևանի <span class="text-white font-semibold">«Տիգրան Մեծ»</span> թեքվանդո ակումբի հիմնադիրը:',
+                aboutP2: "Ավելի քան 15 տարվա մարզումների և մրցումների որձով, Հայկազը զարգացրել է համաշխարհային մակարդակի մարզիկներ և շարունակում է ոգեշնչել հայ չեմպիոնների նոր սերնդին: Նրա ակումբը, անվանակոչված հայոց լեգենդար թագավոր Տիգրան Մեծի պատվին, մարմնավորում է ուժը, կարգապահությունը և ռազմիկի ոգին:",
+                aboutP3: 'Երևանի կենտրոնում գտնվող <span class="text-white">եսրոպ Մաշտոցի պողոտա 5/2</span> հասցեում, «Տիգրան Մեծ» ակումբը առաջարկում է համապարփակ թեքվանդո մարզումներ բոլոր տարիքի և մակարդակի ուսանողների համար:',
+                philosophyTitle: "Մարզման Ֆիլիսոփայություն",
                 phil1: "Կարգապահություն և հոգեկան կարծրություն",
                 phil2: "Մրցումների պատրաստություն բոլոր մակարդակների համար",
                 phil3: "Բնավորության կառուցում մարտարվեստի միջոցով",
-                phil4: "Բոլոր տարիքները հրավիրված են — երեխաներից մինչև մեծահասակներ",
-                scheduleTitle: "Մարզումների Ժամանակացույց",
+                phil4: "ոլոր տարիքները հրավիրված են — երեխաներից մինչև մեծահասակներ",
+                scheduleTitle: "արզումների Ժամանակացույց",
                 tue: "Երեքշաբթի",
                 thu: "Հինգշաբթի",
                 sat: "Շաբաթ",
                 achSubtitle: "Փառքի Սրահ",
-                achTitle1: "Չեմպիոնական ",
+                achTitle1: "եմպիոնական ",
                 achTitle2: "Նվաճումներ",
-                goldBadge: "ՈՍԿԵ ՄԵԴԱԼ",
-                goldTitle: "Թեկվոնդոյի Եվրոպայի Առաջնություն",
+                goldBadge: "ՈՍԵ ՄԵԴԱԼ",
+                goldTitle: "Թեքվանդոյի վրոպայի Առաջնություն",
                 goldLoc: "Խարկով, Ուկրաինա",
                 goldCategory: "Մինչև 21 տարեկան (U21)",
-                goldDesc: "աշային կարգի Չեմպիոն",
+                goldDesc: "Քաշային կարգի Չեմպիոն",
                 goldCountry: "Հայաստան",
                 goldRep: "Ներկայացնելով Հայաստանը",
-                goldText: "Եվրոպայի առաջնությունում այս պատվավոր ՈՍԿԵ ՄԵԴԱԼ-ը նշանավորեց Հայկազի կարիերայի վճռորոշ պահը հաստատելով նրան որպես Եվրոպայի լավագույն երիտասարդ Թեկվոնդո մարզիկներից մեկը:",
+                goldText: "Եվրոպայի առաջնությունում այս պատվավոր ոսկե մեդալը նշանավորեց Հայկազի կարիերայի վճռորոշ պահը՝ հաստատելով նրան որպես Եվրոպայի լավագույն երիտասարդ թեքվանդո մարզիկներից մեկը:",
                 achCard1Title: "Ակումբի Հիմնադիր",
-                achCard1Text: 'Հիմնել է «Տիգրան Մեծ» Թեկվոնդո ակումբը Երևանում՝ դաստիարակելով Հայաստանի ապագա Չեմպիոններին:',
-                achCard2Title: "արպետ մարզիչ",
-                achCard2Text: "10+ տարվա մարզչական փորձ, բազմաթիվ ուսանողներ ձեռք են բերել գոտիներ և մեդալներ:",
+                achCard1Text: 'Հիմնել է «Տիգրան Մեծ» թեքվանդո ակումբը Երևանում դաստիարակելով Հայաստանի ապագա չեմպիոններին:',
+                achCard2Title: "Վարպետ Մարզիչ",
+                achCard2Text: "15+ տարվա մարզչական փորձ, հարյուրավոր ուսանողներ եռք են բերել գոտիներ և մեդալներ:",
                 achCard3Title: "Միջազգային Մրցակից",
-                achCard3Text: "Ներկայացրել է Հայաստանը բազմաթիվ միջազգային մրցաշարերում վրոպայում և դրանից դուրս:",
+                achCard3Text: "Ներկայացրել է Հայաստանը բազմաթիվ միջազգային մրցաշարերում Եվրոպայում և դրանից դուրս:",
+                profileSubtitle: "Ամբողջական Կարիերայի Ցուցակ",
+                profileTitle1: "Ամբողջական ",
+                profileTitle2: "Նվաճումների Պրոֆիլ",
+                profileDesc: "Ուսումնասիրեք Հայկազ Սամվելյանի մրցումների ամբողջական պատմությունը և մանրամասն գրանցումը TaekwondoData-ում — աշխարհի ամենամեծ թեքվանդո մրցումների տվյալների բազայում:",
+                profileBadge: "ՊԱՇՏՈՆԱԿԱՆ ԳՐԱՆՑՈՒՄ",
+                profileCardTitle: "TaekwondoData Պրոֆիլ",
+                profileCardText: "Դիտեք Հայկազ Սամվելյանի ամբողջական, հաստատված մրցումների պատմությունը, ներառյալ բոլոր միջազգային մրցաշարերը, քաշային կարգերը, տեղերը և մրցակիցները: TaekwondoData-ը World Taekwondo-ի պաշտոնական տվյալների բազան է:",
+                profileTag1: "Մրցումների ատմություն",
+                profileTag2: "Քաշային Կարգեր",
+                profileTag3: "Բոլոր Տեղերը",
+                profileTag4: "Մրցակիցների Գրանցումներ",
+                profileLinkText: "Այցելեք Ամբողջական Պրոիլ TaekwondoData-ում",
+                timelineTitle: "Մրցումների Գրանցման Նախադիտում",
+                tl1Event: "Եվրոպայի Առաջնություն U21",
+                tl1Loc: "Խարկով, Ուկրաինա",
+                tl2Event: "Եվրոպայի Առաջնություն U21",
+                tl2Loc: "Զագրեբ, Խորվաթիա",
+                tl3Event: "Հայաստանի Ազգային Առաջնություն",
+                tl3Loc: "րևան, Հայաստան",
+                tl4Event: "Եվրոպայի Պատանեկան Առաջնություն",
+                tl4Loc: "Բելգրադ, Սերբիա",
+                tl5Event: "Հայաստանի Ազգային Առաջնություն",
+                tl5Loc: "Երևան, Հայաստան",
+                tl6Year: "Ավելին...",
+                tl6Text: "Ամբողջական գրանցումը հասանելի է",
+                tl6Link: "TaekwondoData →",
                 galSubtitle: "Լուսանկարներ",
                 galTitle1: "Մրցաշարային ",
                 galTitle2: "Պահեր",
-                galDesc: "«Հերոսների Ճակատամարտ» Թեկվոնդո մրցաշարի և Չեմպիոնական հաղթանակների լավագույն պահերը:",
+                galDesc: "«Հերոսների Ճակատամարտ» թեքվանդո մրցաշարի և չեմպիոնական հաղթանակների լավագույն պահերը:",
                 gal1Title: "1-ին տեղի հարթակի արարողություն",
-                gal1Desc: "Չեմպիոնները հպարտությամբ կանգնած են հարթակի վրա",
-                gal2Tag: "Թիմային Նվաճում",
+                gal1Desc: "եմպիոնները հպարտությամբ կանգնած են հարթակի վրա",
+                gal2Tag: "Թիմային վաճում",
                 gal2Title: "Հաղթանակի թիմային լուսանկար",
                 gal2Desc: "Չեմպիոնները ցուցադրում են մեդալներ և վկայականներ",
                 gal3Title: "Ավագ կարգի հաղթողներ",
@@ -745,21 +956,21 @@
                 locSubtitle: "Գտեք Մեզ",
                 locTitle1: "Մեր ",
                 locTitle2: "Հասցեն",
-                clubFullName: "«Տիգրան Մեծ» Թաեքվանդո Ակումբ",
+                clubFullName: "«Տիգրան Մեծ» Թեքվանդո Ակումբ",
                 locHours: "Եր, Հի, Շաբ: 18:30 - 21:00",
-                locDesc: "Գտնվում է Երևանի հիմնական պողոտաներից մեկում, հեշտ հասանելի հասարակական տրանսպորտով: Ակումբը ունի պրոֆեսիոնալ մարզման մատներ, լիարժեք մրցակցային տարածք և ժամանակակից հարմարություններ:",
-                contactSubtitle: "Կապ եզ Հետ",
+                locDesc: "Գտնվում է Երևանի հիմնական պողոտաներից մեկում, հեշտ հասանելի հասարակական տրանսպորտով: Ակումբն ունի պրոֆեսիոնալ մարզման մատեր, լիարժեք մրցակցային տարածք և ժամանակակից հարմարություններ:",
+                contactSubtitle: "Կապ Հաստատեք Մեզ Հետ",
                 contactTitle1: "Սկսեք Ձեր ",
                 contactTitle2: "Ուղին",
-                contactDesc: "Պատրա՞ստ եք սկսել Թեկվոնդո մարզումները: Կապվեք Հայկազի հետ եր նախընտրած հարթակով:",
-                waText: "րուցեք Հայկազի հետ ուղղակի",
+                contactDesc: "Պատրա՞ստ եք սկսել թեքվանդո մարզումները: ապվեք Հայկազի հետ ձեր նախընտրած հարթակով:",
+                waText: "Զրուցեք Հայկազի հետ ուղղակի",
                 tgText: "Հաղորդագրեք Հայկազին Telegram-ով",
                 callTitle: "Զանգահարեք",
                 callText: "Խոսեք Հայկազի հետ հիմա",
-                ctaTitle: "Պատրա՞ստ եք դառնալ Չեմպիոն?",
-                ctaText: "Միացեք «Տիգրան Մեծ» Թեկվոնդո ակումբին և մարզվեք Եվրոպայի Չեմպիոն Հայկազ Սամվելյանի ղեկավարությամբ: ոլոր մակարդակները հրավիրված են!",
-                ctaBtn: "Սկսել Մարզումները Այսր",
-                footerClub: "եքվանդո Ակումբ",
+                ctaTitle: "ատրա՞ստ եք դառնալ չեմպիոն?",
+                ctaText: "Միացեք «Տիգրան Մեծ» թեքվանդո ակումբին և մարզվեք Եվրոպայի չեմպիոն Հայկազ Սամվելյանի ղեկավարությամբ: Բոլոր մակարդակները հրավիրված են!",
+                ctaBtn: "կսել Մարզումները Այսօր",
+                footerClub: "Թեքվանդո Ակումբ",
                 footerRights: "Բոլոր իրավունքները պաշտպանված են:"
             },
             ru: {
@@ -767,6 +978,7 @@
                 navHome: "Главная",
                 navAbout: "О нас",
                 navAchievements: "Достижения",
+                navFullProfile: "Полный Профиль",
                 navGallery: "Галерея",
                 navContact: "Контакты",
                 heroSubtitle: "Клуб Тхэквондо — Ереван, Армения",
@@ -774,6 +986,7 @@
                 heroDesc: 'Чемпион Европы · Мастер-тренер · Готовим чемпионов в клубе тхэквондо <span class="text-[#ffd60a] font-semibold">«Тигран Мец»</span> в сердце Еревана.',
                 heroCta1: "Начать Тренировки",
                 heroCta2: "Узнать Больше",
+                heroCta3: "Полный Профиль",
                 stat1Label: "Лет Опыта",
                 stat2Label: "Учеников",
                 stat3Label: "Медалей",
@@ -811,6 +1024,32 @@
                 achCard2Text: "15+ лет тренерского опыта, сотни учеников достигли рангов поясов и медалей.",
                 achCard3Title: "Международный Спортсмен",
                 achCard3Text: "Представлял Армению на множестве международных турниров по всей Европе и за её пределами.",
+                profileSubtitle: "Полная Карьера",
+                profileTitle1: "Полный ",
+                profileTitle2: "Профиль Достижений",
+                profileDesc: "Изучите полную историю соревнований и подробный рекорд Айкаса Самвеляна на TaekwondoData — крупнейшей в мире базе данных соревнований по тхэквондо.",
+                profileBadge: "ОФИЦИАЛЬНЫЙ РЕКОРД",
+                profileCardTitle: "Профиль TaekwondoData",
+                profileCardText: "Просмотрите полную, проверенную историю соревнований Айкаса Самвеляна, включая все международные турниры, весовые категории, места и соперников. TaekwondoData — официальная база данных World Taekwondo.",
+                profileTag1: "История Соревнований",
+                profileTag2: "Весовые Категории",
+                profileTag3: "Все Места",
+                profileTag4: "Записи Соперников",
+                profileLinkText: "Посетить Полный Профиль на TaekwondoData",
+                timelineTitle: "Предварительный Просмотр Рекорда Соревнований",
+                tl1Event: "Чемпионат Европы U21",
+                tl1Loc: "Харьков, Украина",
+                tl2Event: "Чемпионат Европы U21",
+                tl2Loc: "Загреб, Хорватия",
+                tl3Event: "Чемпионат Армении",
+                tl3Loc: "Ереван, Армения",
+                tl4Event: "Чемпионат Европы среди кадетов",
+                tl4Loc: "Белград, Сербия",
+                tl5Event: "Чемпионат Армении",
+                tl5Loc: "Ереван, Армения",
+                tl6Year: "Больше...",
+                tl6Text: "Полный рекорд доступен на",
+                tl6Link: "TaekwondoData →",
                 galSubtitle: "Фотогалерея",
                 galTitle1: "Моменты ",
                 galTitle2: "Турнира",
